@@ -13,10 +13,13 @@ func RomanIdentify(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := CountRomanNumber(randomTextPayload)
+	identifiedCombinations, err := IdentifyCombinations(randomTextPayload)
 	if err != nil {
+		WritePayloadResponse(w, http.StatusBadRequest, err.Error())
 		return
 	}
+
+	res := IdentifyBiggerNumber(identifiedCombinations)
 
 	WritePayloadResponse(w, http.StatusOK, res)
 	return
