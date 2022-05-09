@@ -32,10 +32,6 @@ type Service interface {
 	IdentifyBiggerNumber(romanList []string) int
 }
 
-// 1° - Identifico as combinações romanas em uma cadeira de caracteres
-// 2° - Coloco as respectivas combinações em um novo map.
-// 3° - Identifico a combinação com maior valor numérico.
-
 func IdentifyCombinations(textPayload model.TextPayload) ([]string, error) {
 
 	identifiedCombinations := make([]string, 0)
@@ -70,44 +66,6 @@ func IdentifyCombinations(textPayload model.TextPayload) ([]string, error) {
 
 	return validRomanNumbers, nil
 }
-
-//func symbolDivisor(symbols []string) []string {
-//	var separatedSymbols []string
-//	addSymbol := symbols[0]
-//
-//	if len(symbols) == 1 {
-//		separatedSymbols = append(separatedSymbols, addSymbol)
-//		return separatedSymbols
-//	}
-//
-//	for i := 1; i < len(symbols); i++ {
-//		lastSymbol := addSymbol[len(addSymbol)-1:]
-//
-//		if symbols[i] == lastSymbol {
-//			if isRepeatable(symbols[i]) {
-//				if len(addSymbol) >= 3 {
-//					index := addSymbol[len(addSymbol)-3 : len(addSymbol)-2]
-//					if symbols[i] == index {
-//						separatedSymbols = append(separatedSymbols, addSymbol)
-//						addSymbol = symbols[i]
-//					} else {
-//						addSymbol += symbols[i]
-//					}
-//				} else {
-//					addSymbol += symbols[i]
-//				}
-//			} else {
-//				separatedSymbols = append(separatedSymbols, addSymbol)
-//				addSymbol = symbols[i]
-//			}
-//		} else {
-//			addSymbol += symbols[i]
-//		}
-//	}
-//	separatedSymbols = append(separatedSymbols, addSymbol)
-//
-//	return separatedSymbols
-//}
 
 func isRepeatable(symbol string) bool {
 	if symbol == "I" || symbol == "X" || symbol == "C" || symbol == "M" {
@@ -172,7 +130,6 @@ func isValidRomanSequence(s string) bool {
 				if strings.Contains(str, actualSymbol) {
 					return false
 				}
-
 				check = true
 			} else if SymbolValue[leftSymbol] == SymbolValue[actualSymbol] { // I == I
 				count := strings.Count(str, actualSymbol)
@@ -190,6 +147,12 @@ func isValidRomanSequence(s string) bool {
 				combSymbol := leftSymbol + actualSymbol
 				for _, v := range validCombinations {
 					if combSymbol == v {
+						if lenStr := len(str); lenStr >= 2 {
+							if SymbolValue[actualSymbol] > SymbolValue[string(str[lenStr-2])] {
+								return false
+							}
+						}
+
 						check = true
 					}
 				}
