@@ -72,7 +72,20 @@ func Test_isValidRomanSequence(t *testing.T) {
 		args args
 		want bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should return true when sequence is a valid roman combination",
+			args: args{
+				s: "MMMDCCCLXXXIV",
+			},
+			want: true,
+		},
+		{
+			name: "should return false when sequence not is an valid roman combination",
+			args: args{
+				s: "MMMDDCCCLXXXIV",
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -92,7 +105,14 @@ func TestIdentifyBiggerNumber(t *testing.T) {
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should return the bigger number in an roman sequence",
+			args: args{
+				romanList: []string{"XXX", "IV", "LX", "MMD", "MMCM", "MMCMX"},
+			},
+			// MMCMX = 2910
+			want: 2910,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -112,7 +132,20 @@ func Test_isRepeatable(t *testing.T) {
 		args args
 		want bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should return true when is a roman number",
+			args: args{
+				symbol: "X",
+			},
+			want: true,
+		},
+		{
+			name: "should return false when not is a roman number",
+			args: args{
+				symbol: "E",
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
